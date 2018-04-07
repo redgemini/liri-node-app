@@ -38,10 +38,14 @@ var client = new Twitter(keys.twitter);
 
 var callMovie= function(movieTitle){
 
+  if (movieTitle === undefined) {
+    movieTitle = "Mr Nobody";
+  }
+
    request(
      request("http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=full&tomatoes=true&apikey=trilogy"),
      function(error, response, body) {
-       console.log("error:", error); // Print the error if one occurred
+       console.log("error:", error);
        console.log("statusCode:", response && response.statusCode); 
       
        var data = JSON.parse(body);
@@ -64,14 +68,6 @@ var callMovie= function(movieTitle){
 var doWhatItSays = function() {
   fs.readFile("random.txt", "utf8", function(error, data) {
     console.log(data);
-
-var dataArr = data.split(",");
-    if (dataArr.length === 2) {
-      command(dataArr[0], dataArr[1]);
-    } 
-    else if (dataArr.length === 1) {
-      command(dataArr[0]);
-    }
   });
 };
 
